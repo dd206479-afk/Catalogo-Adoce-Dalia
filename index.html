@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adoce Dália</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #f4f9f5;
+      color: #2d4a35;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #3a7d4f, #5aab70);
+      text-align: center;
+      padding: 36px 20px 28px;
+    }
+
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 12vw, 5rem);
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    header p {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.9rem;
+      font-weight: 300;
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    header .whats-header {
+      margin-top: 10px;
+      color: rgba(255,255,255,0.95);
+      font-size: 0.85rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    main {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    .sec-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #5aab70;
+      margin-bottom: 14px;
+    }
+
+    .notice {
+      background: #fff8e1;
+      border: 2px solid #f5c518;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .notice-icon {
+      font-size: 1.3rem;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    .notice-text {
+      font-size: 0.88rem;
+      color: #5a4000;
+      line-height: 1.5;
+    }
+
+    .notice-text strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 2px;
+      color: #3d2b00;
+    }
+
+    .flavors { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+
+    .flavor-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 2px solid #d6eed9;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .flavor-card.active {
+      border-color: #3a7d4f;
+      box-shadow: 0 4px 18px rgba(58,125,79,0.15);
+    }
+
+    .flavor-info { flex: 1; }
+
+    .flavor-name-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+    }
+
+    .flavor-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #2d4a35;
+    }
+
+    .flavor-weight {
+      font-size: 0.78rem;
+      color: #8aac92;
+      font-weight: 400;
+      margin-left: 6px;
+    }
+
+    .flavor-price {
+      font-size: 0.82rem;
+      color: #5aab70;
+      margin-top: 4px;
+    }
+
+    .qty {
+      display: flex;
+      align-items: center;
+      background: #edf7ef;
+      border-radius: 99px;
+      padding: 3px;
+    }
+
+    .qty button {
+      width: 34px;
+      height: 34px;
+      border: none;
+      background: transparent;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: #3a7d4f;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+      line-height: 1;
+    }
+
+    .qty button:hover { background: #3a7d4f; color: #fff; }
+
+    .qty span {
+      min-width: 32px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2d4a35;
+    }
+
+    .total-row {
+      background: #3a7d4f;
+      border-radius: 14px;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      color: #fff;
+    }
+
+    .total-row span:first-child {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .total-row span:last-child {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-section { margin-bottom: 24px; }
+
+    .form-section input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #d6eed9;
+      border-radius: 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: #2d4a35;
+      background: #fff;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color .2s;
+    }
+
+    .form-section input:focus { border-color: #5aab70; }
+    .form-section input.err   { border-color: #d9534f; }
+
+    .btn-whats {
+      width: 100%;
+      padding: 17px;
+      background: linear-gradient(135deg, #25d366, #1da851);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-whats:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(37,211,102,0.4);
+    }
+
+    .errmsg {
+      color: #d9534f;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4rem;
+      color: #5aab70;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Adoce Dália</h1>
+  <p>Bolos de pote artesanais 🌿</p>
+  <p class="whats-header">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    (75) 99946-0073
+  </p>
+</header>
+
+<main>
+
+  <p class="sec-title">Escolha os sabores</p>
+
+  <div class="notice">
+    <span class="notice-icon">📋</span>
+    <div class="notice-text">
+      <strong>Sob encomenda</strong>
+      Pedido mínimo de <strong>3 unidades</strong> — pode misturar os sabores à vontade!
+    </div>
+  </div>
+
+  <div class="flavors">
+    <div class="flavor-card" data-flavor="Chocolate">
+      <div class="flavor-info">
+        <div class="flavor-name-row">
+          <div class="flavor-name">🍫 Chocolate</div>
+          <span class="flavor-weight">250g</span>
+        </div>
+        <div class="flavor-price">R$ 7,00 cada</div>
+      </div>
+      <div class="qty">
+        <button class="minus">−</button>
+        <span>0</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+
+    <div class="flavor-card" data-flavor="Ninho">
+      <div class="flavor-info">
+        <div class="flavor-name-row">
+          <div class="flavor-name">🥛 Ninho</div>
+          <span class="flavor-weight">250g</span>
+        </div>
+        <div class="flavor-price">R$ 7,00 cada</div>
+      </div>
+      <div class="qty">
+        <button class="minus">−</button>
+        <span>0</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+
+    <div class="flavor-card" data-flavor="Maracujá">
+      <div class="flavor-info">
+        <div class="flavor-name-row">
+          <div class="flavor-name">🍋 Maracujá</div>
+          <span class="flavor-weight">250g</span>
+        </div>
+        <div class="flavor-price">R$ 7,00 cada</div>
+      </div>
+      <div class="qty">
+        <button class="minus">−</button>
+        <span>0</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-row">
+    <span>Total</span>
+    <span id="total">R$ 0,00</span>
+  </div>
+
+  <p class="sec-title">Seus dados</p>
+
+  <div class="form-section">
+    <input type="text" id="nome"     placeholder="Seu nome completo" />
+    <input type="tel"  id="telefone" placeholder="(00) 00000-0000"   />
+  </div>
+
+  <p class="errmsg" id="errmsg"></p>
+
+  <button class="btn-whats" id="btnWhats">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    Finalizar Pedido no WhatsApp
+  </button>
+
+</main>
+
+<footer>Adoce Dália</footer>
+
+<script>
+  const PRECO = 7;
+  const WHATSAPP = '5575999460073';
+  const MIN_PEDIDO = 3;
+
+  const cards = document.querySelectorAll('.flavor-card');
+
+  cards.forEach(card => {
+    const minus = card.querySelector('.minus');
+    const plus  = card.querySelector('.plus');
+    const span  = card.querySelector('.qty span');
+
+    plus.addEventListener('click', () => {
+      span.textContent = +span.textContent + 1;
+      card.classList.add('active');
+      calcTotal();
+    });
+
+    minus.addEventListener('click', () => {
+      const val = +span.textContent;
+      if (val > 0) span.textContent = val - 1;
+      if (+span.textContent === 0) card.classList.remove('active');
+      calcTotal();
+    });
+  });
+
+  function calcTotal() {
+    let total = 0;
+    cards.forEach(c => total += +c.querySelector('.qty span').textContent * PRECO);
+    document.getElementById('total').textContent =
+      total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  function totalUnidades() {
+    let un = 0;
+    cards.forEach(c => un += +c.querySelector('.qty span').textContent);
+    return un;
+  }
+
+  document.getElementById('telefone').addEventListener('input', function () {
+    let v = this.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length >= 7)
+      v = v.length === 11
+        ? `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`
+        : `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
+    else if (v.length >= 3) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length) v = `(${v}`;
+    this.value = v;
+  });
+
+  document.getElementById('btnWhats').addEventListener('click', () => {
+    const nome = document.getElementById('nome').value.trim();
+    const tel  = document.getElementById('telefone').value.trim();
+    const err  = document.getElementById('errmsg');
+
+    document.getElementById('nome').classList.remove('err');
+    document.getElementById('telefone').classList.remove('err');
+    err.textContent = '';
+
+    const unidades = totalUnidades();
+
+    if (!nome) {
+      document.getElementById('nome').classList.add('err');
+      err.textContent = 'Informe seu nome.'; return;
+    }
+    if (!tel) {
+      document.getElementById('telefone').classList.add('err');
+      err.textContent = 'Informe seu telefone.'; return;
+    }
+    if (unidades === 0) {
+      err.textContent = 'Escolha pelo menos um sabor.'; return;
+    }
+    if (unidades < MIN_PEDIDO) {
+      err.textContent = `Pedido mínimo de ${MIN_PEDIDO} unidades. Você selecionou ${unidades}.`; return;
+    }
+
+    const total = unidades * PRECO;
+
+    const itens = [...cards]
+      .filter(c => +c.querySelector('.qty span').textContent > 0)
+      .map(c => `- ${c.dataset.flavor} (250g): ${c.querySelector('.qty span').textContent} un.`)
+      .join('\n');
+
+    const msg =
+`Olá! Meu nome é ${nome}.
+
+Pedido:
+${itens}
+
+Total: ${total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+Telefone: ${tel}`;
+
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+</script>
+</body>
+</html>
